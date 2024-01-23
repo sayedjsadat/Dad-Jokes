@@ -8,20 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//getters/setters, toString(), equals/hashcode, ...
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DadJoke {
 
-    //getters/setters, toString(), equals/hashcode, ...
-    @Entity
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public class Movie
-    {
         //auto-increment field
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
         private String dadjoke;
-    }
 }

@@ -20,13 +20,6 @@ public class DadJokeService {
         this.repository = repository;
     }
 
-    public DadJoke getRandomMovie()
-    {
-        Random generator = new Random();
-        List<DadJoke> movies = repository.findAll();
-        int index = generator.nextInt(movies.size());
-        return movies.get(index);
-    }
 
     public List<DadJoke> all()
     {
@@ -34,8 +27,6 @@ public class DadJokeService {
         List<DadJoke> jokes = repository.findAll();
         return Collections.unmodifiableList(jokes);
     }
-
-
 
     public void addJoke(DadJoke joke)
     {
@@ -45,15 +36,20 @@ public class DadJokeService {
 
     public DadJoke updateDadJoke( int id, String newJokeText)
     {
-        DadJoke currentJoke = repository.findById(id).orElseThrow();
-        currentJoke.setDadjoke(newJokeText);
+        DadJoke dadJoke = repository.findById(id).orElseThrow();
 
-        return repository.save(currentJoke);
+        dadJoke.setDadjoke(newJokeText);
+
+        return dadJoke;
     }
 
     public void deleteJoke(int id)
     {
         repository.deleteById(id);
+    }
+
+    public DadJoke byId(int id){
+        return repository.findById(id).orElseThrow();
     }
 
 }

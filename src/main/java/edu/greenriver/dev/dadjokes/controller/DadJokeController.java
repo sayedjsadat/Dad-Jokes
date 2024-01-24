@@ -29,13 +29,14 @@ public class DadJokeController
         service.addJoke(newJoke);
     }
 
-    @PostMapping("jokes")
+    @PostMapping("jokes/{id}")
     public DadJoke updateDadJoke (@PathVariable int id,
                                @RequestBody String newJokeText )
     {
         return service.updateDadJoke(id, newJokeText);
     }
 
+    @DeleteMapping("jokes/{id}")
     public void deleteJoke(@PathVariable int id)
     {
         service.deleteJoke(id);

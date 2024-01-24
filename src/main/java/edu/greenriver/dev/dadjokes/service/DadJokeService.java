@@ -12,6 +12,9 @@ import java.util.Random;
 public class DadJokeService {
     private DadJokeRepository repository;
 
+    /**
+     * @param repository for service
+     */
     public DadJokeService(DadJokeRepository repository)
     {
         this.repository = repository;

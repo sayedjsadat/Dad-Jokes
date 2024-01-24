@@ -2,11 +2,13 @@ package edu.greenriver.dev.dadjokes.service;
 
 import edu.greenriver.dev.dadjokes.db.DadJokeRepository;
 import edu.greenriver.dev.dadjokes.domain.DadJoke;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public class DadJokeService {
     private DadJokeRepository repository;
 
@@ -26,52 +28,29 @@ public class DadJokeService {
     public List<DadJoke> all()
     {
         //convert to read-only list
-        List<DadJoke> movies = repository.findAll();
-        return Collections.unmodifiableList(movies);
+        List<DadJoke> jokes = repository.findAll();
+        return Collections.unmodifiableList(jokes);
     }
 
 
 
-    public void addJoke(DadJoke addJoke)
+    public void addJoke(DadJoke joke)
     {
         //this will result in an INSERT SQL statement
-        repository.save(addJoke);
+        repository.save(joke);
     }
 
-    public Movie updateDadJoke(DadJoke updateDadJoke, String dadjoke)
+    public DadJoke updateDadJoke( int id, String newJokeText)
     {
-        //find the movie that matches
-        /*Movie savedMovie = movies.get(movieIndexOf(title));
+        DadJoke currentJoke = repository.findById(id).orElseThrow();
+        currentJoke.setDadjoke(newJokeText);
 
-        //update the data in the movie
-        savedMovie.setGenre(updatedMovie.getGenre());
-        savedMovie.setReleaseYear(updatedMovie.getReleaseYear());
-        savedMovie.setInternational(updatedMovie.isInternational());
-        savedMovie.setRating(updatedMovie.getRating());
-
-        return savedMovie;*/
-        return null;
+        return repository.save(currentJoke);
     }
 
-    public void deleteMovie(String title)
+    public void deleteJoke(int id)
     {
-        /*int index = movieIndexOf(title);
-        movies.remove(index);*/
+        repository.deleteById(id);
     }
 
-    //returns the index where the matching movie title is found
-    private int movieIndexOf(String dadjoke)
-    {
-        List<DadJoke> movies = repository.findAll();
-        for (int i = 0; i < movies.size(); i++)
-        {
-            DadJoke next = dadjoke.get(i);
-            if (next.getTitle().equalsIgnoreCase(title))
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }
 }
